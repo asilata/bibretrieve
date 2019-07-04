@@ -40,6 +40,8 @@
 ;; Here only to silence the compilator
 (defvar bibretrieve-backends)
 (defvar bibretrieve-installed-backends)
+(defvar bibretrieve-pre-write-bib-items-hook nil
+  "Hook called on bibitems buffer before writing bibitems to a file.")
 
 (defconst bibretrieve-buffer-name-prefix "bibretrieve-results-")
 
@@ -301,6 +303,7 @@ From ALL, append to a prompted file (BIBFILE is the default one) MARKED entries 
 	  (insert "\n")
 	  (insert (bibretrieve-extract-bib-items all marked complement))
 	  (insert "\n")
+          (run-hooks 'bibretrieve-pre-write-bib-items-hook)
 	  (save-buffer)
 	  file
 	  )
